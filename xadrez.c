@@ -1,36 +1,42 @@
 #include <stdio.h>
 
-int main(){
-    int torre = 1, rainha = 8, bispo = 0, cavalo; // Criacao dos movimentos das peças, sendo usado o nome delas como contador;
-
-    for(int i = 0; i < rainha; i++ ){ // movimentando a rainha 8 casas a esquerda (o a 7)
-        printf("Rainha movendo-se à ESQUERDA\n");
+void torre(int casas){ // Função torre para movimentação da torre, com o numero de casas que ira ser movidas.
+    if (casas > 0){
+        printf("Torre movende-se à DIREITA\n");
+        torre(casas - 1); // Inicio da função recursiva, chamando ela mesmo e diminuindo o valor
     }
+}
 
-    printf("\n"); // Pulando linha entre o movimento das peças.
-    do{
-        printf("Torre movendo-se à DIREITA\n");
-        torre++;
-    }while(torre <=5); //Movimentado a torre 5 casas à direita (1 a 5).
+void rainha(int casas){// Função rainha para movimentação da rainha, com o numero de casas que ira ser movidas
+    if (casas > 0){
+        printf("Rainha movendo-se a ESQUERDA\n");
+        rainha(casas - 1); // Inicio da função recursiva, chamando ela mesmo e diminuindo o valor
+    }
+}
 
-    printf("\n"); // Pulando linha entre o movimento das peças.
-
-    while(bispo < 5){
+void bispo(int casas){// Função bispo para movimentação da bispo, com o numero de casas que ira ser movidas
+    if (casas > 0){
+        printf("Bispo movendo-se para DIREITA\n");
         printf("Bispo movendo-se para CIMA\n");
-        printf("Bispo movendo-se para DIREITA\n"); // Movimento do bispo precisa de multiplos printf por ser na diagonal.
-        bispo++;
-    } 
+        bispo(casas - 1); // Inicio da função recursiva, chamando ela mesmo e diminuindo o valor
+        
+    }
+}
 
-    printf("\n"); // Pulando linha entre o movimento das peças.
+int main(){
+    rainha(8);
+    printf("\n");// Pulando linha entre as peças
+    torre(5);
+    printf("\n");// Pulando linha entre as peças
+    bispo(5);
+    printf("\n");// Pulando linha entre as peças
 
-    for(cavalo = 1; cavalo < 2; cavalo++){ // Criando o primeiro looping que ira movimentar o cavalo para esquerda, apos a finalização do segundo looping
-        int contMovimento = 0;
-        do{
-            printf("Cavalo movendo-se para BAIXO\n");
-            contMovimento++;
-        }while(contMovimento < 2); // Segundo looping (do-while) movimenta o cavalo duas vezes para baixo.
-
-        printf("Cavalo movendo-se para ESQUERDA\n"); // E quando o do-while finalizar, o cavalo se movimentara para esquerda, e ira finalizar o looping
+    
+    for(int cavaloHorizontal = 2, cavaloVertical = 2; cavaloVertical > 0 && cavaloHorizontal > 0 ; cavaloHorizontal--, cavaloVertical--){ // Cavalo usando looping complexos.
+        printf("Cavalo movendo-se para FRENTE\n"); // O cavalo ira se movimentar duas vezes para frente, e então o numero de cavaloVertical sera baixo o suficiente para ele entrar no IF
+        if(cavaloVertical == 1){
+            printf("Cavalo movendo-se para DIREITA\n"); // Entrando no IF sera a ultima intereção com looping que sera o movimento do cavalo de ir completar o movimento em L
+        }
     }
 
     return 0;
